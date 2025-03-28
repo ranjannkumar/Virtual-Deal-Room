@@ -1,0 +1,64 @@
+# Node.js #
+############
+node_modules/
+package-lock.json
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnp
+.pnp.js
+
+# Environment variables #
+#########################
+.env
+
+# Build results #
+#################
+build/
+dist/
+
+# IDE specific files #
+######################
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS generated files #
+######################
+.DS_Store
+Thumbs.db
+
+# Logs and temp files #
+######################
+*.log
+*.tmp
+temp/
+tmp/
+logs/
+*.swp
+*.swo
+*.bak
+
+# Security #
+############
+*.pem
+*.key
+*.p12
+
+# Database files #
+##################
+*.sqlite
+*.sqlite3
+*.db
+
+# React build files (if applicable, in the client directory) #
+#############################################################
+client/build/
+
+# Specific files or folders to ignore #
+######################################
+config/local.json # specific file
+secrets/ # entire folder
