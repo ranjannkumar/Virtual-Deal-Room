@@ -5,6 +5,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const dealRoutes = require('./routes/dealRoutes');
 const chatRoutes =  require('./routes/chatRoutes');
+const documentRoutes =  require('./routes/documentRoutes')
 const http = require('http')
 const {Server} = require('socket.io')
 
@@ -26,6 +27,8 @@ app.use(express.json());
 app.use('/api/auth',authRoutes);
 app.use('/api/deals',dealRoutes);
 app.use('/api/chat',chatRoutes);
+app.use('/api/documents',documentRoutes);
+
 
 
 // Socket.io for Real-time Price Negotiation and notifications

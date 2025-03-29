@@ -1,25 +1,21 @@
 const mongoose = require('mongoose');
 
 const DocumentSchema = new mongoose.Schema({
-  deal: {
+  dealId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Deal',
     required: true,
   },
-  uploader: {
+  uploadedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
-  filename: {
+  fileUrl: {
     type: String,
     required: true,
   },
-  filepath: {
-    type: String,
-    required: true,
-  },
-  allowedViewers: [{
+  allowedUsers: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
   }],
