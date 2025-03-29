@@ -6,6 +6,7 @@ const authRoutes = require('./routes/authRoutes');
 const dealRoutes = require('./routes/dealRoutes');
 const chatRoutes =  require('./routes/chatRoutes');
 const documentRoutes =  require('./routes/documentRoutes')
+const analyticsRoutes =require('./routes/analyticsRoutes')
 const http = require('http')
 const {Server} = require('socket.io')
 
@@ -15,12 +16,13 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server,{
-  cors:{
-    origin: '*',
-    methods: ['GET', 'POST']
-  }
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
 });
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 
 // Routes
@@ -28,7 +30,7 @@ app.use('/api/auth',authRoutes);
 app.use('/api/deals',dealRoutes);
 app.use('/api/chat',chatRoutes);
 app.use('/api/documents',documentRoutes);
-
+app.use('/api/analytics',analyticsRoutes ); 
 
 
 // Socket.io for Real-time Price Negotiation and notifications
@@ -63,5 +65,5 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 6000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
