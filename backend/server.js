@@ -4,6 +4,7 @@ const connectDB = require('./config/db');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const dealRoutes = require('./routes/dealRoutes');
+const chatRoutes =  require('./routes/chatRoutes');
 const http = require('http')
 const {Server} = require('socket.io')
 
@@ -24,9 +25,10 @@ app.use(express.json());
 // Routes
 app.use('/api/auth',authRoutes);
 app.use('/api/deals',dealRoutes);
+app.use('/api/chat',chatRoutes);
 
 
-// Socket.io for Real-time Price Negotiation
+// Socket.io for Real-time Price Negotiation and notifications
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
 
@@ -38,6 +40,19 @@ io.on('connection', (socket) => {
   socket.on('negotiatePrice', ({ dealId, newPrice }) => {
     console.log(`New price negotiation in deal ${dealId}: $${newPrice}`);
     io.to(dealId).emit('priceUpdated', { dealId, newPrice });
+  });
+
+  socket.on('sendMessage', ({ dealId, senderId, receiverId, content }) => {
+    const message = { dealId, senderId, receiverId, content, isRead: false };
+    io.to(dealId).emit('newMessage', message);
+  });
+
+  socket.on('typing', ({ dealId, userId }) => {
+    socket.to(dealId).emit('userTyping', { userId });
+  });
+
+  socket.on('readMessages', ({ dealId }) => {
+    io.to(dealId).emit('messagesRead');
   });
 
   socket.on('disconnect', () => {
