@@ -10,7 +10,6 @@ yarn-error.log
 
 # Environment variables #
 #########################
-.env
 
 # Build results #
 #################
@@ -62,3 +61,4 @@ client/build/
 ######################################
 config/local.json # specific file
 secrets/ # entire folder
+config.bat
